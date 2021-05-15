@@ -1,6 +1,6 @@
 {
   "name": "@indexed-finance/subgraph-clients",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,8 @@
   "license": "ISC",
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
