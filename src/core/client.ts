@@ -46,6 +46,8 @@ const parseDailySnapshot = ({
   totalValueLockedUSD,
   totalSwapVolumeUSD,
   totalVolumeUSD,
+  dailyFeesUSD,
+  dailySwapVolumeUSD,
   ...rest
 }: DailyPoolSnapshotPartialReturnData): DailyPoolSnapshotPartialData => ({
   ...rest,
@@ -55,6 +57,8 @@ const parseDailySnapshot = ({
   totalValueLockedUSD: +totalValueLockedUSD,
   totalSwapVolumeUSD: +totalSwapVolumeUSD,
   totalVolumeUSD: +totalVolumeUSD,
+  dailyFeesUSD: +dailyFeesUSD,
+  dailySwapVolumeUSD: +dailySwapVolumeUSD
 })
 
 const parsePool = ({
@@ -158,7 +162,7 @@ export default class IndexedCoreSubgraphClient {
   }
 
   // Staking Pools
-  async getAllStakingPools() {
+  async getAllStakingPools(): Promise<NdxStakingPoolData> {
     return this.client.query({
       query: STAKING_POOLS,
       fetchPolicy: 'cache-first'

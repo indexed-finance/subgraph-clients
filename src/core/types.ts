@@ -2,6 +2,8 @@ export type DailyPoolSnapshotPartialData = {
   id: string;
   date: number;
   value: number;
+  dailyFeesUSD: number;
+  dailySwapVolumeUSD: number;
   totalSupply: string;
   feesTotalUSD: number;
   totalValueLockedUSD: number;
@@ -90,6 +92,8 @@ export type DailyPoolSnapshotPartialReturnData = {
   id: string;
   date: string;
   value: string;
+  dailyFeesUSD: string;
+  dailySwapVolumeUSD: string;
   totalSupply: string;
   feesTotalUSD: string;
   totalValueLockedUSD: string;
