@@ -12,6 +12,7 @@ export type AllStakingInfoData = {
 
 export type PoolData = {
   id: string;
+  token: string;
   symbol: string;
   name: string;
   decimals: number;
@@ -39,6 +40,7 @@ export type AllStakingInfoReturnData = {
 
 export type PoolReturnData = {
   id: string;
+  token: string;
   symbol: string;
   name: string;
   decimals: string;

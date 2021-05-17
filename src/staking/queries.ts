@@ -13,6 +13,7 @@ query allStakingInfo {
     poolCount
     pools(first: 100) {
       id
+      token
       symbol
       name
       decimals
