@@ -8,7 +8,7 @@ export const SUBGRAPH_URLS: Record<string, NetworkSubgraphs> = {
   mainnet: {
     indexedCore: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed',
     uniswap: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
-    indexedStaking: ''
+    indexedStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/staking'
   },
   rinkeby: {
     indexedCore: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-rinkeby',
