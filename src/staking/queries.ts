@@ -19,6 +19,8 @@ query allStakingInfo {
       decimals
       balance
       isPairToken
+      token0
+      token1
       allocPoint
       lastRewardBlock
       userCount

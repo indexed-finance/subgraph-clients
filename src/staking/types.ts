@@ -18,6 +18,8 @@ export type PoolData = {
   decimals: number;
   balance: string;
   isPairToken: boolean;
+  token0?: string;
+  token1?: string;
   allocPoint: number;
   lastRewardBlock: number;
   userCount: number;
@@ -46,6 +48,8 @@ export type PoolReturnData = {
   decimals: string;
   balance: string;
   isPairToken: boolean;
+  token0?: string;
+  token1?: string;
   allocPoint: string;
   lastRewardBlock: string;
   userCount: string;
