@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 
 export { default as IndexedStakingSubgraphClient } from './staking/client'
 export { default as IndexedCoreSubgraphClient } from './core/client'
+export { default as MasterChefSubgraphClient } from './masterchef/client'
 
 const HEALTH_QUERY = gql`
 query health($subgraphName: String!) {
