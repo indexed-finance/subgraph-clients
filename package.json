@@ -1,6 +1,6 @@
 {
   "name": "@indexed-finance/subgraph-clients",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,7 @@
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
+    "@ethersproject/abi": "^5.3.1",
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/node": "^15.3.0",
     "chai": "^4.3.4",
@@ -31,5 +32,8 @@
     "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
     "isomorphic-fetch": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@ethersproject/abi": "^5.3.1"
   }
 }
