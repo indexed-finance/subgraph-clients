@@ -8,6 +8,7 @@ export { default as IndexedStakingSubgraphClient } from './staking/client'
 export { default as IndexedCoreSubgraphClient } from './core/client'
 export { default as MasterChefSubgraphClient } from './masterchef/client'
 export { default as GovernanceSubgraphClient } from './governance/client'
+export { default as NirnSubgraphClient } from './nirn/client'
 
 const HEALTH_QUERY = gql`
 query health($subgraphName: String!) {
