@@ -45,7 +45,16 @@ query allVaults {
       adapters
       weights
       snapshots(first: 100) {
-        
+        id
+        timestamp
+        type
+        totalValue
+        totalFeesClaimed
+        revenueTokens
+        revenueAPRs
+        adapters
+        weights
+        apr
       }
     }
   }
