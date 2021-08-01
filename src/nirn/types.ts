@@ -93,5 +93,5 @@ export type VaultReturnData = {
   reserveRatio: number;
   adapters: TokenAdapter[]
   weights: number[]
-  snapshots: VaultSnapshot[]
+  snapshots: VaultSnapshotReturnData[]
 }
