@@ -89,9 +89,9 @@ export type VaultReturnData = {
   underlying: TokenReturnData;
   feeRecipient: string;
   rewardsSeller: string;
-  performanceFee: number;
-  reserveRatio: number;
+  performanceFee: string;
+  reserveRatio: string;
   adapters: TokenAdapter[]
-  weights: number[]
+  weights: string[]
   snapshots: VaultSnapshotReturnData[]
 }
