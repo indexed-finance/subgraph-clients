@@ -57,7 +57,7 @@ export default class NirnSubgraphClient {
     }).then((result) => result.data.registries[0].tokenAdapters.map(parseTokenAdapter));
   }
 
-  async allSupportedTokens(): Promise<TokenAdapter[]> {
+  async allSupportedTokens(): Promise<TokenData[]> {
     return this.client.query({
       query: ALL_SUPPORTED_TOKENS,
       fetchPolicy: 'cache-first'
