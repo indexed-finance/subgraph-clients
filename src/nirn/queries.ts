@@ -42,7 +42,9 @@ query allVaults {
       rewardsSeller
       performanceFee
       reserveRatio
-      adapters
+      adapters {
+        ${tokenAdapterQueryBody}
+      }
       weights
       snapshots(first: 100) {
         id

@@ -29,7 +29,7 @@ export default class NirnSubgraphClient {
 
   static forNetwork(network: 'rinkeby' | 'mainnet') {
     const client = new ApolloClient({
-      link: new HttpLink({ uri: SUBGRAPH_URLS[network].indexedCore, fetch }),
+      link: new HttpLink({ uri: SUBGRAPH_URLS[network].nirn, fetch }),
       cache: new InMemoryCache(),
       shouldBatch: true,
     } as any);
