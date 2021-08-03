@@ -28,15 +28,22 @@ export type ProtocolAdapterReturnData = {
 
 type TokenType = TokenData | TokenReturnData
 
-export type TokenAdapter<T extends TokenType = TokenData> = {
+type WrapperData = TokenData & { underlying: string; }
+type WrapperReturnData = TokenData & { underlying: { id: string } }
+type WrapperType = WrapperData | WrapperReturnData
+
+export type TokenAdapter<
+  U extends TokenType = TokenData,
+  W extends WrapperType = WrapperData
+> = {
   id: string;
   name: string;
-  underlying: T;
-  wrapper: T;
+  underlying: U;
+  wrapper: W;
   protocol: Omit<ProtocolAdapter, "tokenAdaptersCount">
 }
 
-export type TokenAdapterReturnData = TokenAdapter<TokenReturnData>
+export type TokenAdapterReturnData = TokenAdapter<TokenReturnData, WrapperReturnData>
 
 export type VaultSnapshot = {
   id: string;
@@ -91,7 +98,7 @@ export type VaultReturnData = {
   rewardsSeller: string;
   performanceFee: string;
   reserveRatio: string;
-  adapters: TokenAdapter[]
+  adapters: TokenAdapterReturnData[]
   weights: string[]
   snapshots: VaultSnapshotReturnData[]
 }

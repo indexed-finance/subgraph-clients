@@ -14,6 +14,7 @@ wrapper {
   symbol
   name
   decimals
+  underlying { id }
 }
 protocol {
   id

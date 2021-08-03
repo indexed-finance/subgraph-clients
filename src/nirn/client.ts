@@ -90,13 +90,13 @@ const parseTokenAdapter = ({
   id,
   name,
   underlying,
-  wrapper,
+  wrapper: { underlying: wU, ...wRest},
   protocol
 }: TokenAdapterReturnData): TokenAdapter => ({
   id,
   name,
   underlying: parseTokenData(underlying),
-  wrapper: parseTokenData(wrapper),
+  wrapper: { ...parseTokenData(wRest), underlying: wU.id },
   protocol
 })
 
