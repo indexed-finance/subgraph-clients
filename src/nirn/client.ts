@@ -39,11 +39,21 @@ export default class NirnSubgraphClient {
     return new NirnSubgraphClient(client);
   }
 
-  async getAllVaults(): Promise<VaultData[]> {
-    return this.client.query({
+  async getAllVaults(userAddress?: string): Promise<VaultData[]> {
+    const vaults: VaultData[] = await this.client.query({
       query: ALL_VAULTS,
       fetchPolicy: 'cache-first'
     }).then((result) => result.data.registries[0].vaults.map(parseVault));
+    if (userAddress) {
+      const accounts = await this.getAllVaultAccounts(userAddress)
+      accounts.forEach((account) => {
+        const vault = vaults.find(v => v.id === account.vault);
+        if (vault) {
+          vault.averagePricePerShare = account.averagePricePerShare
+        }
+      })
+    }
+    return vaults
   }
 
   async allProtocolAdapters(): Promise<ProtocolAdapter[]> {

@@ -102,6 +102,7 @@ export type VaultData = {
   weights: number[]
   snapshots: VaultSnapshot[]
   price: number;
+  averagePricePerShare?: number;
 }
 
 export type VaultReturnData = {
