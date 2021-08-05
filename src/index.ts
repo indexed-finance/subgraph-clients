@@ -23,6 +23,34 @@ query health($subgraphName: String!) {
       }
       handler
     }
+    nonFatalErrors(first: 100) {
+      message
+      block {
+        number
+        hash
+      }
+      handler
+    }
+    chains {
+      chainHeadBlock {
+        number
+      }
+      latestBlock {
+        number
+      }
+    }
+  }
+  indexingStatusForPendingVersion(subgraphName: $subgraphName) {
+    synced
+    health
+    fatalError {
+      message
+      block {
+        number
+        hash
+      }
+      handler
+    }
     chains {
       chainHeadBlock {
         number

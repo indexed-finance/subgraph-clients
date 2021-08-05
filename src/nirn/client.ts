@@ -9,7 +9,8 @@ import {
   ALL_TOKEN_ADAPTERS,
   ALL_SUPPORTED_TOKENS,
   TOKEN_ADAPTERS_BY_PROTOCOL,
-  TOKEN_ADAPTERS_BY_TOKEN
+  TOKEN_ADAPTERS_BY_TOKEN,
+  ALL_VAULT_ACCOUNTS
 } from './queries'
 import {
   TokenData,
@@ -21,7 +22,9 @@ import {
   VaultSnapshot,
   VaultSnapshotReturnData,
   VaultData,
-  VaultReturnData
+  VaultReturnData,
+  VaultAccount,
+  VaultAccountReturnData,
 } from './types'
 
 export default class NirnSubgraphClient {
@@ -79,7 +82,25 @@ export default class NirnSubgraphClient {
       variables: { id: underlying.toLowerCase() },
     }).then((result) => result.data.registries[0].tokenAdapters.map(parseTokenAdapter));
   }
+
+  async getAllVaultAccounts(account: string): Promise<VaultAccount[]> {
+    return this.client.query({
+      query: ALL_VAULT_ACCOUNTS,
+      fetchPolicy: 'cache-first',
+      variables: { account: account.toLowerCase() },
+    }).then((result) => result.data.vaultAccounts.map(parseVaultAccount));
+  }
 }
+
+const parseVaultAccount = ({
+  vault,
+  averagePricePerShare,
+  ...rest
+}: VaultAccountReturnData): VaultAccount => ({
+  vault: vault.id,
+  averagePricePerShare: +averagePricePerShare,
+  ...rest
+})
 
 const parseTokenData = ({ decimals, ...rest }: TokenReturnData): TokenData => ({
   ...rest,
@@ -113,12 +134,14 @@ const parseVaultSnapshot = ({
   revenueAPRs,
   weights,
   apr,
+  price,
   ...rest
 }: VaultSnapshotReturnData): VaultSnapshot => ({
   timestamp: +timestamp,
   revenueAPRs: revenueAPRs.map(a => +a),
   weights: weights.map(w => +w),
   apr: +apr,
+  price: +price,
   ...rest
 })
 
@@ -130,6 +153,7 @@ const parseVault = ({
   reserveRatio,
   performanceFee,
   weights,
+  price,
   ...rest
 }: VaultReturnData): VaultData => ({
   decimals: +decimals,
@@ -139,5 +163,6 @@ const parseVault = ({
   adapters: adapters.map(a => parseTokenAdapter(a)),
   snapshots: snapshots.map(s => parseVaultSnapshot(s)),
   weights: weights.map(w => +w),
+  price: +price,
   ...rest
 })

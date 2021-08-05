@@ -5,6 +5,20 @@ export type TokenData = {
   decimals: number;
 }
 
+export type VaultAccount = {
+  id: string;
+  vault: string;
+  account: string;
+  averagePricePerShare: number;
+}
+
+export type VaultAccountReturnData = {
+  id: string;
+  vault: { id: string };
+  account: string;
+  averagePricePerShare: string;
+}
+
 export type TokenReturnData = {
   id: string;
   name: string;
@@ -56,6 +70,7 @@ export type VaultSnapshot = {
   adapters: string[];
   weights: number[];
   apr: number;
+  price: number;
 }
 
 export type VaultSnapshotReturnData = {
@@ -69,6 +84,7 @@ export type VaultSnapshotReturnData = {
   adapters: string[];
   weights: string[];
   apr: string;
+  price: string;
 }
 
 export type VaultData = {
@@ -85,6 +101,7 @@ export type VaultData = {
   adapters: TokenAdapter[]
   weights: number[]
   snapshots: VaultSnapshot[]
+  price: number;
 }
 
 export type VaultReturnData = {
@@ -101,4 +118,5 @@ export type VaultReturnData = {
   adapters: TokenAdapterReturnData[]
   weights: string[]
   snapshots: VaultSnapshotReturnData[]
+  price: string;
 }

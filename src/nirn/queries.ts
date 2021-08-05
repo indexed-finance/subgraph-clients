@@ -43,6 +43,7 @@ query allVaults {
       rewardsSeller
       performanceFee
       reserveRatio
+      price
       adapters {
         ${tokenAdapterQueryBody}
       }
@@ -58,8 +59,22 @@ query allVaults {
         adapters
         weights
         apr
+        price
       }
     }
+  }
+}
+`
+
+export const ALL_VAULT_ACCOUNTS = gql`
+query allVaultAccounts($account: Bytes!) {
+  vaultAccounts(first: 100, where: {account: $account}) {
+    id
+    account
+    vault {
+      id
+    }
+    averagePricePerShare
   }
 }
 `
