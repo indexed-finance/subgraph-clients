@@ -67,7 +67,7 @@ export type VaultSnapshot = {
   totalFeesClaimed: string;
   revenueTokens: string[];
   revenueAPRs: number[];
-  adapters: string[];
+  adapters: TokenAdapter[];
   weights: number[];
   apr: number;
   price: number;
@@ -81,7 +81,8 @@ export type VaultSnapshotReturnData = {
   totalFeesClaimed: string;
   revenueTokens: string[];
   revenueAPRs: string[];
-  adapters: string[];
+  adaptersList: string[]
+  adapters: TokenAdapterReturnData[];
   weights: string[];
   apr: string;
   price: string;
@@ -116,6 +117,7 @@ export type VaultReturnData = {
   rewardsSeller: string;
   performanceFee: string;
   reserveRatio: string;
+  adaptersList: string[]
   adapters: TokenAdapterReturnData[]
   weights: string[]
   snapshots: VaultSnapshotReturnData[]

@@ -145,6 +145,8 @@ const parseVaultSnapshot = ({
   weights,
   apr,
   price,
+  adaptersList,
+  adapters,
   ...rest
 }: VaultSnapshotReturnData): VaultSnapshot => ({
   timestamp: +timestamp,
@@ -152,12 +154,14 @@ const parseVaultSnapshot = ({
   weights: weights.map(w => +w),
   apr: +apr,
   price: +price,
+  adapters: adaptersList.map((id) => parseTokenAdapter(adapters.find(a => a.id === id) as TokenAdapterReturnData)),
   ...rest
 })
 
 const parseVault = ({
   underlying,
   adapters,
+  adaptersList,
   snapshots,
   decimals,
   reserveRatio,
@@ -170,7 +174,7 @@ const parseVault = ({
   reserveRatio: +reserveRatio,
   performanceFee: +performanceFee,
   underlying: parseTokenData(underlying),
-  adapters: adapters.map(a => parseTokenAdapter(a)),
+  adapters: adaptersList.map((id) => parseTokenAdapter(adapters.find(a => a.id === id) as TokenAdapterReturnData)),
   snapshots: snapshots.map(s => parseVaultSnapshot(s)),
   weights: weights.map(w => +w),
   price: +price,

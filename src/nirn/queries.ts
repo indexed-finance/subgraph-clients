@@ -44,6 +44,7 @@ query allVaults {
       performanceFee
       reserveRatio
       price
+      adaptersList
       adapters {
         ${tokenAdapterQueryBody}
       }
@@ -56,7 +57,10 @@ query allVaults {
         totalFeesClaimed
         revenueTokens
         revenueAPRs
-        adapters
+        adaptersList
+        adapters {
+          ${tokenAdapterQueryBody}
+        }
         weights
         apr
         price
