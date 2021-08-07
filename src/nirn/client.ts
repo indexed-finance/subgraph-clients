@@ -63,10 +63,11 @@ export default class NirnSubgraphClient {
     }).then((result) => result.data.registries[0].protocolAdapters.map(parseProtocolAdapter));
   }
 
-  async allTokenAdapters(): Promise<TokenAdapter[]> {
+  async allTokenAdapters({first = 200, skip = 0}: { first: number; skip: number; } = {first: 200, skip: 0}): Promise<TokenAdapter[]> {
     return this.client.query({
       query: ALL_TOKEN_ADAPTERS,
-      fetchPolicy: 'cache-first'
+      fetchPolicy: 'cache-first',
+      variables: { first, skip }
     }).then((result) => result.data.registries[0].tokenAdapters.map(parseTokenAdapter));
   }
 

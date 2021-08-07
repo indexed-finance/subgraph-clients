@@ -98,10 +98,10 @@ query allProtocolAdapters {
 `
 
 export const ALL_TOKEN_ADAPTERS = gql`
-query allTokenAdapters {
+query allTokenAdapters($first: Int!, $skip: Int!) {
   registries(first: 1) {
     id
-    tokenAdapters(first: 100) {
+    tokenAdapters(first: $first, skip: $skip) {
       ${tokenAdapterQueryBody}
     }
   }
