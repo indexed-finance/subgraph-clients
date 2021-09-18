@@ -3,7 +3,8 @@ export interface NetworkSubgraphs {
   uniswap: string;
   indexedStaking: string;
   masterChef: string;
-  nirn: string
+  nirn: string;
+  dndx: string;
 }
 
 export const SUBGRAPH_URLS: Record<string, NetworkSubgraphs> = {
@@ -13,13 +14,15 @@ export const SUBGRAPH_URLS: Record<string, NetworkSubgraphs> = {
     indexedStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/staking',
     masterChef: 'https://api.thegraph.com/subgraphs/name/sushiswap/master-chef',
     nirn: 'https://api.thegraph.com/subgraphs/name/indexed-finance/nirn',
+    dndx: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-dividends'
   },
   rinkeby: {
     indexedCore: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-rinkeby',
     uniswap: 'https://api.thegraph.com/subgraphs/name/samgos/uniswap-v2-rinkeby',
     indexedStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/rinkeby-staking',
     masterChef: '',
-    nirn: ''
+    nirn: '',
+    dndx: ''
   }
 }
 
