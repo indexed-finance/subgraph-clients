@@ -68,7 +68,7 @@ export default class IndexedDividendsSubgraphClient {
     }).then((result) => parseLock(result.data.timeLock))
   }
 
-  getLocksByOwner(owner: string): Promise<TimeLockData> {
+  getLocksByOwner(owner: string): Promise<TimeLockData[]> {
     return this.client.query({
       query: LOCKS_BY_OWNER,
       variables: {
