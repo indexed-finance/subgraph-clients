@@ -150,15 +150,34 @@ export default class IndexedCoreSubgraphClient {
     });
   }
 
-  async getPoolSnapshots(poolId: string, hours: number): Promise<DailyPoolSnapshotPartialData[]> {
-    return this.client.query({
-      query: POOL_SNAPSHOTS,
-      variables: {
-        poolId: poolId.toLowerCase(),
-        hours
-      },
-      fetchPolicy: 'cache-first'
-    }).then((result) => result.data.indexPool.dailySnapshots.map(parseDailySnapshot));
+  async getPoolSnapshots(poolId: string, hours: number, chunkSize = 1000): Promise<DailyPoolSnapshotPartialData[]> {
+    // const queries: string[] = [];
+    const results: DailyPoolSnapshotPartialData[][] = [];
+    let remainder = hours;
+    let skip = 0;
+    while (remainder > 0) {
+      let num = Math.min(remainder, chunkSize);
+      remainder -= num;
+      results.push(await this.client.query({
+        query: POOL_SNAPSHOTS,
+        variables: {
+          poolId: poolId.toLowerCase(),
+          hours: num,
+          skip
+        },
+        fetchPolicy: 'cache-first'
+      }).then((result) => result.data.indexPool.dailySnapshots.map(parseDailySnapshot)))
+      skip += num;
+    }
+    return results.reduce((arr, res) => ([ ...arr, ...res ]), [])
+    // return this.client.query({
+    //   query: POOL_SNAPSHOTS,
+    //   variables: {
+    //     poolId: poolId.toLowerCase(),
+    //     hours
+    //   },
+    //   fetchPolicy: 'cache-first'
+    // }).then((result) => result.data.indexPool.dailySnapshots.map(parseDailySnapshot));
   }
 
   // Staking Pools

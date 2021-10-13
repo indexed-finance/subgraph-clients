@@ -96,9 +96,9 @@ query tokenDayData($tokenId: Bytes!, $days: Int!) {
 `
 
 export const POOL_SNAPSHOTS = gql`
-query snapshots($poolId: Bytes!, $hours: Int!) {
+query snapshots($poolId: Bytes!, $hours: Int!, $skip: Int!) {
   indexPool(id: $poolId) {
-    dailySnapshots(orderBy: date, orderDirection: desc, first: $hours) {
+    dailySnapshots(orderBy: date, skip: $skip, orderDirection: desc, first: $hours) {
       ${dailySnapshotPartialBody}
     }
   }
