@@ -35,9 +35,11 @@ import {
 export default class IndexedCoreSubgraphClient {
   constructor(public client: ApolloClient<unknown>) {}
 
-  static forNetwork(network: 'rinkeby' | 'mainnet') {
+  static forNetwork(network: 'rinkeby' | 'mainnet' | 'polygon') {
+    const uri = SUBGRAPH_URLS[network].indexedCore;
+    if (!uri) return undefined;
     const client = new ApolloClient({
-      link: new HttpLink({ uri: SUBGRAPH_URLS[network].indexedCore, fetch }),
+      link: new HttpLink({ uri, fetch }),
       cache: new InMemoryCache(),
       shouldBatch: true,
     } as any);

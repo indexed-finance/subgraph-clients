@@ -46,9 +46,11 @@ const parseStakingInfo = ({
 export default class MasterChefSubgraphClient {
   constructor(public client: ApolloClient<unknown>) {}
 
-  static forNetwork(network: 'mainnet' | 'rinkeby') {
+  static forNetwork(network: 'rinkeby' | 'mainnet' | 'polygon') {
+    const uri = SUBGRAPH_URLS[network].masterChef;
+    if (!uri) return undefined;
     const client = new ApolloClient({
-      link: new HttpLink({ uri: SUBGRAPH_URLS[network].masterChef, fetch }),
+      link: new HttpLink({ uri, fetch }),
       cache: new InMemoryCache(),
       shouldBatch: true,
     } as any);
