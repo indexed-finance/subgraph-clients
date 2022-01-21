@@ -16,7 +16,7 @@ export const SUBGRAPH_URLS: Record<string, NetworkSubgraphs> = {
     masterChef: 'https://api.thegraph.com/subgraphs/name/sushiswap/master-chef',
     nirn: 'https://api.thegraph.com/subgraphs/name/indexed-finance/nirn',
     dndx: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-dividends',
-    oldStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-old-staking'
+    oldStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/old-staking'
   },
   rinkeby: {
     indexedCore: 'https://api.thegraph.com/subgraphs/name/indexed-finance/indexed-rinkeby',
