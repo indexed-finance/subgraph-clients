@@ -25,6 +25,7 @@ import {
   POOL_SNAPSHOTS,
   POOL_SWAPS_BULK,
   POOL_UPDATE,
+  POOL_UPDATE_BULK,
   STAKING_POOLS
 } from './queries';
 import {
@@ -33,7 +34,8 @@ import {
   parseDailySnapshot,
   parsePool,
   parseStakingPool,
-  parsePoolSwapData
+  parsePoolSwapData,
+  parseIndexPoolUpdate
 } from './parsers'
 
 export default class IndexedCoreSubgraphClient {
@@ -88,13 +90,21 @@ export default class IndexedCoreSubgraphClient {
       variables: { poolId: poolId.toLowerCase() },
       fetchPolicy: 'cache-first'
     }).then((result: { data: { indexPool: IndexPoolUpdateReturnData }}) => {
-      const { dailySnapshots, tokens } = result.data.indexPool
-      const snapshot = parseDailySnapshot(dailySnapshots[0]);
-      const tokenPrices = tokens.reduce(
-        (obj, t) => ({ ...obj, [t.token.id]: +(t.token.priceUSD) }),
-        {}
-      );
-      return { snapshot, tokenPrices };
+      return parseIndexPoolUpdate(result.data.indexPool)
+    });
+  }
+
+  async getPoolUpdates(poolIds: string[]): Promise<Record<string, IndexPoolUpdateData>> {
+    return this.client.query({
+      query: POOL_UPDATE_BULK(poolIds.map(p => p.toLowerCase())),
+      fetchPolicy: 'cache-first'
+    }).then((result) => {
+      const retData = result.data as Record<string, IndexPoolUpdateReturnData>;
+      const parsed: Record<string, IndexPoolUpdateData> = {};
+      for (const pool of poolIds) {
+        parsed[pool] = parseIndexPoolUpdate(retData[`q_${pool.toLowerCase()}`])
+      }
+      return parsed
     });
   }
 
@@ -118,14 +128,6 @@ export default class IndexedCoreSubgraphClient {
       skip += num;
     }
     return results.reduce((arr, res) => ([ ...arr, ...res ]), [])
-    // return this.client.query({
-    //   query: POOL_SNAPSHOTS,
-    //   variables: {
-    //     poolId: poolId.toLowerCase(),
-    //     hours
-    //   },
-    //   fetchPolicy: 'cache-first'
-    // }).then((result) => result.data.indexPool.dailySnapshots.map(parseDailySnapshot));
   }
 
   // Staking Pools

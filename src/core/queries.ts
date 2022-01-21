@@ -128,18 +128,53 @@ query stakingPools {
 export const POOL_UPDATE = gql`
 query lastHourPoolData($poolId: Bytes!) {
   indexPool(id: $poolId) {
-    dailySnapshots(orderBy: date, orderDirection: desc, first: 1) {
+    dailySnapshots(orderBy: date, orderDirection: desc, first: 2) {
       ${dailySnapshotPartialBody}
     }
     tokens {
       token {
         id
+        decimals
+        name
+        symbol
         priceUSD
       }
     }
   }
 }
 `
+
+export const POOL_UPDATE_BULK = (pools: string[]) => {
+  const updateQuery = (pool: string) => `
+  q_${pool}: indexPool(id: "${pool}") {
+    dailySnapshots(orderBy: date, orderDirection: desc, first: 2) {
+      id
+      date
+      value
+      totalSupply
+      feesTotalUSD
+      totalValueLockedUSD
+      totalSwapVolumeUSD
+      totalVolumeUSD
+    }
+    tokens {
+      token {
+        id
+        decimals
+        name
+        symbol
+        priceUSD
+      }
+    }
+  }
+  `
+  const queryString = `
+  query lastHourPoolsData {
+    ${pools.map(updateQuery).join('\n')}
+  }
+`;
+  return gql(queryString)
+}
 
 export const POOL_SWAPS_BULK = (pools: string[], numSwaps: number) => {
   const swapQuery = (pool: string) => `

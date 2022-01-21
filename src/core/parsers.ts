@@ -10,8 +10,25 @@ import {
   TokenData,
   TokenReturnData,
   PoolSwapData,
-  PoolSwapReturnData
+  PoolSwapReturnData,
+  IndexPoolUpdateReturnData,
+  IndexPoolUpdateData
 } from "./types";
+
+export const parseIndexPoolUpdate = ({
+  dailySnapshots,
+  tokens
+}: IndexPoolUpdateReturnData): IndexPoolUpdateData => {
+  const snapshot = parseDailySnapshot(dailySnapshots[0]);
+  const lastSnapshot = parseDailySnapshot(dailySnapshots[1]);
+  snapshot.dailyFeesUSD = snapshot.feesTotalUSD - lastSnapshot.feesTotalUSD;
+  snapshot.dailySwapVolumeUSD = snapshot.totalSwapVolumeUSD - lastSnapshot.totalSwapVolumeUSD;
+  const tokenPrices = tokens.reduce(
+    (obj, t) => ({ ...obj, [t.token.id]: +(t.token.priceUSD) }),
+    {}
+  );
+  return { snapshot, tokenPrices };
+}
 
 export const parsePoolSwapData = ({
   timestamp,
