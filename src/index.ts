@@ -10,6 +10,8 @@ export { default as MasterChefSubgraphClient } from './masterchef/client'
 export { default as GovernanceSubgraphClient } from './governance/client'
 export { default as NirnSubgraphClient } from './nirn/client'
 export { default as IndexedDividendsSubgraphClient } from './dndx/client'
+export { default as UniswapSubgraphClient } from './uniswap/client'
+export { default as OldStakingSubgraphClient } from './oldstaking/client'
 
 const HEALTH_QUERY = gql`
 query health($subgraphName: String!) {
