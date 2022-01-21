@@ -16,11 +16,14 @@ import {
   IndexPoolUpdateReturnData,
   NdxStakingPoolReturnData,
   NdxStakingPoolData,
+  PoolSwapData,
+  PoolSwapReturnData,
  } from './types';
 import {
   ALL_POOLS,
   POOL_BY_ID,
   POOL_SNAPSHOTS,
+  POOL_SWAPS_BULK,
   POOL_UPDATE,
   STAKING_POOLS
 } from './queries';
@@ -30,6 +33,7 @@ import {
   parseDailySnapshot,
   parsePool,
   parseStakingPool,
+  parsePoolSwapData
 } from './parsers'
 
 export default class IndexedCoreSubgraphClient {
@@ -47,6 +51,21 @@ export default class IndexedCoreSubgraphClient {
   }
 
   // Index Pools
+
+  async getSwaps(pools: string[], numSwaps: number = 10): Promise<Record<string, PoolSwapData[]>> {
+    return this.client.query({
+      query: POOL_SWAPS_BULK(pools, numSwaps),
+      fetchPolicy: 'cache-first',
+      variables: { pools: pools.map(p => p.toLowerCase()), numSwaps },
+    }).then((result) => {
+      const retData = result.data as Record<string, PoolSwapReturnData[]>;
+      const parsed: Record<string, PoolSwapData[]> = {};
+      for (const pool of pools) {
+        parsed[pool] = retData[`q_${pool.toLowerCase()}`].map(parsePoolSwapData)
+      }
+      return parsed
+    });
+  }
 
   async getIndexPool(poolId: string): Promise<IndexPoolData> {
     return this.client.query({

@@ -9,7 +9,17 @@ import {
   PoolTokenReturnData,
   TokenData,
   TokenReturnData,
+  PoolSwapData,
+  PoolSwapReturnData
 } from "./types";
+
+export const parsePoolSwapData = ({
+  timestamp,
+  ...rest
+}: PoolSwapReturnData): PoolSwapData => ({
+  timestamp: +timestamp,
+  ...rest
+})
 
 export const parseToken = (token: TokenReturnData): TokenData => ({
   ...token,

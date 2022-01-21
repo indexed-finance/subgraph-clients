@@ -86,6 +86,15 @@ export type NdxStakingPoolData = {
   rewardPerTokenStored: string;
 }
 
+export type PoolSwapData = {
+  id: string;
+  tokenIn: string;
+  tokenOut: string;
+  tokenAmountIn: string;
+  tokenAmountOut: string;
+  timestamp: number;
+}
+
 /* Raw Types */
 
 export type DailyPoolSnapshotPartialReturnData = {
@@ -179,4 +188,13 @@ export type NdxStakingPoolReturnData = {
   claimedRewards: string;
   rewardRate: string;
   rewardPerTokenStored: string;
+}
+
+export type PoolSwapReturnData = {
+  id: string;
+  tokenIn: string;
+  tokenOut: string;
+  tokenAmountIn: string;
+  tokenAmountOut: string;
+  timestamp: string;
 }

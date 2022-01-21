@@ -140,3 +140,22 @@ query lastHourPoolData($poolId: Bytes!) {
   }
 }
 `
+
+export const POOL_SWAPS_BULK = (pools: string[], numSwaps: number) => {
+  const swapQuery = (pool: string) => `
+  q_${pool}: swaps(orderBy: timestamp, orderDirection: desc, first: ${numSwaps}, where: { pool: "${pool}" }) {
+    id
+    tokenIn
+    tokenOut
+    tokenAmountIn
+    tokenAmountOut
+    timestamp
+  }
+  `
+  const queryString = `
+  query swapsBulk {
+    ${pools.map(swapQuery).join('\n')}
+  }
+`;
+  return gql(queryString)
+}
