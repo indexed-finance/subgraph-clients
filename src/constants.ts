@@ -23,6 +23,10 @@ export const SUBGRAPH_URLS: Record<string, NetworkSubgraphs> = {
     uniswap: 'https://api.thegraph.com/subgraphs/name/samgos/uniswap-v2-rinkeby',
     indexedStaking: 'https://api.thegraph.com/subgraphs/name/indexed-finance/rinkeby-staking',
   },
+  polygon: {
+    indexedCore: 'https://api.thegraph.com/subgraphs/name/indexed-finance/core-polygon',
+    uniswap: 'https://api.thegraph.com/subgraphs/name/stvallen25/quickswap',
+  }
 }
 
 export const GOV_SUBGRAPH_URLS: Record<string, string> = {
