@@ -40,9 +40,8 @@ export default class UniswapSubgraphClient {
 
   async getSwaps(pairs: string[], numSwaps: number = 10): Promise<Record<string, PairSwapData[]>> {
     return this.client.query({
-      query: PAIR_SWAPS_BULK(pairs, numSwaps),
+      query: PAIR_SWAPS_BULK(pairs.map(p => p.toLowerCase()), numSwaps),
       fetchPolicy: 'cache-first',
-      variables: { pairs: pairs.map(p => p.toLowerCase()), numSwaps },
     }).then((result) => {
       const retData = result.data as Record<string, PairSwapReturnData[]>;
       const parsed: Record<string, PairSwapData[]> = {};

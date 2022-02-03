@@ -56,9 +56,8 @@ export default class IndexedCoreSubgraphClient {
 
   async getSwaps(pools: string[], numSwaps: number = 10): Promise<Record<string, PoolSwapData[]>> {
     return this.client.query({
-      query: POOL_SWAPS_BULK(pools, numSwaps),
+      query: POOL_SWAPS_BULK(pools.map(p => p.toLowerCase()), numSwaps),
       fetchPolicy: 'cache-first',
-      variables: { pools: pools.map(p => p.toLowerCase()), numSwaps },
     }).then((result) => {
       const retData = result.data as Record<string, PoolSwapReturnData[]>;
       const parsed: Record<string, PoolSwapData[]> = {};
